@@ -9,5 +9,10 @@ module ApplicationHelper
       "#{base_title} | #{@title}"
     end
   end
-
+  
+  # Load the logo image
+  def logo
+    image_tag("http://railstutorial.org/images/sample_app/logo.png", :alt => "Sample App", :class => "round" )
+  end
+  
 end
