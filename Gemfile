@@ -7,6 +7,9 @@ gem 'rails', '3.0.1'
 
 gem 'sqlite3-ruby', '1.2.5', :require => 'sqlite3'
 
+# Use Gravatar images for users
+gem 'gravatar_image_tag', '0.1.0'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
