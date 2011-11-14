@@ -52,6 +52,26 @@ describe UsersController do
       response.should have_selector("title", :content => "Sign up")
     end
     
+    it "should have a name field" do
+      get :new
+      response.should have_selector("input[name='user[name]'][type='text']")
+    end
+    
+    it "should have an email field" do
+      get :new
+      response.should have_selector("input[name='user[email]'][type='text']")
+    end
+    
+    it "should have a password field" do
+      get :new
+      response.should have_selector("input[name='user[password]'][type='password']")
+    end
+    
+    it "should have a password confirmation field" do
+      get :new
+      response.should have_selector("input[name='user[password_confirmation]'][type='password']")
+    end
+    
   end
   
   describe "POST 'create'" do
@@ -76,6 +96,21 @@ describe UsersController do
       it "should render the 'new' page" do
         post :create, :user => @attr
         response.should render_template('new')
+      end
+      
+      describe "invalid submission failure" do
+        
+        before(:each) do
+          @invalid_attr = { :name => "Invalid User", :email => "invalid@example", 
+                            :password => "dude", :password_confirmation => "dude" }
+        end
+  
+        it "should clear the password and confirmation fields" do
+          post :create, :user => @invalid_attr
+          response.should have_selector("input[name='user[password]']", :value => "")
+          response.should have_selector("input[name='user[password_confirmation]']", :value => "")
+        end
+              
       end
       
     end
