@@ -10,6 +10,9 @@ gem 'sqlite3-ruby', '1.2.5', :require => 'sqlite3'
 # Use Gravatar images for users
 gem 'gravatar_image_tag', '0.1.0'
 
+# Get haml markdown language for Rails 3.0
+gem 'haml', '3.0.25'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
