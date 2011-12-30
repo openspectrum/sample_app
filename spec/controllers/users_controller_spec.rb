@@ -98,7 +98,7 @@ describe UsersController do
       assigns(:user).should == @user
     end
     
-    it "should have the rigth title" do
+    it "should have the right title" do
       get :show, :id => @user
       response.should have_selector("title", :content => @user.name)
     end
@@ -111,6 +111,14 @@ describe UsersController do
     it "should have a profile image" do
       get :show, :id => @user
       response.should have_selector("h1>img", :class => "gravatar")
+    end
+    
+    it "should show the users microposts" do
+      mp1 = Factory(:micropost, :user => @user, :content => "Foo bar")
+      mp2 = Factory(:micropost, :user => @user, :content => "Baz quux")
+      get :show, :id => @user
+      response.should have_selector("span.content", :content => mp1.content)
+      response.should have_selector("span.content", :content => mp2.content)
     end
   
   end
@@ -419,7 +427,7 @@ describe UsersController do
       it "should not allow admins to delete themselves" do
         delete :destroy, :id => @admin
         response.should redirect_to(users_path)
-        flash[:notice].should == "You can't delete yourself!"
+        flash[:error].should == "You can't delete yourself!"
       end
     
     end
