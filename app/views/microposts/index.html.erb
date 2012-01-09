@@ -1,0 +1,16 @@
+<table class="microposts" summary="Profile information">
+	<tr>
+		<td class="main">
+			<h1>
+				<%= link_to "#{@user.name}", @user %>'s Posts
+			</h1>
+			<% unless @user.microposts.empty? %>			
+				<ol class="microposts" summary="User microposts">
+					<%= render @microposts %>
+				</ol>
+				<%= will_paginate @microposts %>
+			<% end %>
+		</td>
+	</tr>
+</table>
+
