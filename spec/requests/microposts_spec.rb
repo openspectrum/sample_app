@@ -57,7 +57,7 @@ describe "Microposts" do
       visit root_path
       fill_in :micropost_content, :with => content
       click_button
-      response.should have_selector("span.microposts", :content => "1 micropost")
+      response.should have_selector("span.microposts_count", :content => "1")
     end
     
     it "should show two microposts" do
@@ -68,7 +68,7 @@ describe "Microposts" do
       content_2 = "consectetur adipisicing elit"
       fill_in :micropost_content, :with => content_2
       click_button
-      response.should have_selector("span.microposts", :content => "2 microposts")
+      response.should have_selector("span.microposts_count", :content => "2")
     end
     
   end

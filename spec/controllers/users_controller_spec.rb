@@ -120,6 +120,27 @@ describe UsersController do
       response.should have_selector("span.content", :content => mp1.content)
       response.should have_selector("span.content", :content => mp2.content)
     end
+    
+    describe "following/follower specs" do
+      
+      before(:each) do
+        followed_user = Factory(:user, :email => Factory.next(:email))
+        follower_user = Factory(:user, :email => Factory.next(:email))
+        @user.follow!(followed_user)
+        follower_user.follow!(@user)
+      end
+    
+      it "should have the right number of followers" do
+        get :show, :id => @user
+        response.should have_selector("span#followers", :content => "1 follower")
+      end
+      
+      it "should have the right number of following" do
+        get :show, :id => @user
+        response.should have_selector("span#following", :content => "1 following")
+      end
+      
+    end
   
   end
   

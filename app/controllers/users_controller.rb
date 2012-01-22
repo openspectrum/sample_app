@@ -10,16 +10,16 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.find(params[:id])
+    @user       = User.find(params[:id])
     @microposts = @user.microposts.paginate(:page => params[:page])
-    @title = @user.name
+    @title      = @user.name
   end
   
   def new
     if signed_in?
       redirect_to(root_url)
     else
-      @user = User.new
+      @user  = User.new
       @title = "Sign up"
     end
   end
@@ -70,16 +70,17 @@ class UsersController < ApplicationController
   end
   
   def following
-    @title = "Following"
-    @user = User.find(params[:id])
-    @users = @user.following.paginate(:page => params[:page])
-    render 'show_follow'
+    show_follow(:following)
   end
   
   def followers
-    @title = "Followers"
-    @user = User.find(params[:id])
-    @users = @user.followers.paginate(:page => params[:page])
+    show_follow(:followers)
+  end
+  
+  def show_follow(action)
+    @title = action.to_s.capitalize
+    @user  = User.find(params[:id])
+    @users = @user.send(action).paginate(:page => params[:page])
     render 'show_follow'
   end
 
