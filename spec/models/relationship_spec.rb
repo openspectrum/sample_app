@@ -39,7 +39,7 @@ describe Relationship do
   
   describe "validations" do
     
-    it "shoudl require a follower_id" do
+    it "should require a follower_id" do
       @relationship.follower_id = nil
       @relationship.should_not be_valid
     end
